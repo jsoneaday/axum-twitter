@@ -1,6 +1,6 @@
-use sqlx::PgPool;
+use crate::repository::repo::DbRepo;
 
 #[derive(Clone)]
 pub struct AppState {
-    pub pool: PgPool
+    pub repo: DbRepo
 }

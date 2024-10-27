@@ -1,6 +1,7 @@
 pub mod controllers {
     pub mod profiles {
         pub mod profile_controller;
+        pub mod profile_parameters;
     }
     pub mod lib {
         pub mod errors;
@@ -12,6 +13,7 @@ pub mod repository {
         pub mod profile_repo;
         pub mod profile_model;
     }
+    pub mod repo;
 }
 pub mod routes {
     pub mod profiles_router;
@@ -23,12 +25,11 @@ pub mod lib {
 
 use axum::Router;
 use lib::app_state::AppState;
+use repository::repo::DbRepo;
 use routes::profiles_router::get_profile_router;
-use sqlx::postgres::PgPoolOptions;
 
 pub async fn run() {
-    let pool = PgPoolOptions::new().max_connections(5).connect("").await;
-    let state = AppState { pool: pool.unwrap() };
+    let state = AppState { repo: DbRepo::init().await };
 
     let router = Router::new().merge(get_profile_router(state));
     
