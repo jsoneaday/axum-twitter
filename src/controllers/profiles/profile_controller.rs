@@ -1,11 +1,11 @@
 use axum::{extract::Path, Json};
 use crate::{controllers::lib::{errors::AppErrors, response::AppResponse}, repository::profiles::profile_model::Profile};
-use super::profile_parameters::ProfileParameter;
+use super::profile_parameters::NewProfileRouteParam;
 use fake::faker::lorem::en::Sentence;
 use fake::{faker::internet::en::Username, Fake};
 use fake::faker::name::en::{FirstName, LastName};
 
-pub async fn create_profile(Json(_new_profile): Json<ProfileParameter>) -> Result<i64, AppErrors> {
+pub async fn create_profile(Json(_new_profile): Json<NewProfileRouteParam>) -> Result<i64, AppErrors> {
     Ok(1)
 }
 

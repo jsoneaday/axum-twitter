@@ -1,5 +1,5 @@
 use mockall::automock;
-use sqlx::{PgPool, Error, query_as};
+use sqlx::{Error, query_as};
 use async_trait::async_trait;
 use crate::repository::repo::{DbRepo, EntityId, Repository};
 use super::profile_model::NewProfile;
@@ -16,6 +16,7 @@ pub struct ProfileRepo {
     repo: DbRepo
 }
 
+#[allow(unused)]
 impl ProfileRepo {
     fn new(repo: DbRepo) -> Self {
         Self {
@@ -69,8 +70,7 @@ impl<T: ProfileDb> ProfileService<T> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use mockall::predicate::*;
+    use super::*;    
     use fake::faker::lorem::en::Sentence;
     use fake::{faker::internet::en::Username, Fake};
     use fake::faker::name::en::{FirstName, LastName};
