@@ -5,12 +5,12 @@ use std::env;
 
 #[derive(FromRow)]
 pub struct EntityId {
-    id: i64
+    pub id: i64
 }
 
 #[derive(Clone)]
 pub struct DbRepo {
-    pool: PgPool
+    pub pool: PgPool
 }
 
 impl DbRepo {
@@ -25,6 +25,14 @@ pub trait Repository {
     type Output;
 
     fn get_conn(&self) -> &Self::Output;
+}
+
+impl Repository for DbRepo {
+    type Output = PgPool;
+
+    fn get_conn(&self) -> &Self::Output {
+        &self.pool    
+    }
 }
 
 async fn get_conn_pool() -> PgPool {
